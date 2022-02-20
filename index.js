@@ -7,6 +7,12 @@ var bodyParser = require("body-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 
+dotenv.config();
+// Connect Database
+mongoose.connect(process.env.MONGODB_URL, () => {
+  console.log("Connected to mongooseDB");
+})
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan("normal"));
