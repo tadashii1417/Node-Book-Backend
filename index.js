@@ -9,14 +9,22 @@ const dotenv = require("dotenv");
 const authorRoute = require("./routes/author");
 
 dotenv.config();
-// Connect Database
-mongoose.connect(process.env.MONGODB_URL, () => {
-  console.log("Connected to mongooseDB");
-})
+const connectionParams={
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}
+mongoose.connect(process.env.MONGODB_URL,connectionParams)
+  .then( () => {
+    console.log('Connected to database ')
+  })
+  .catch( (err) => {
+    console.error(`Error connecting to the database. \n${err}`);
+  })
+
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan("normal"));
+app.use(morgan("default"));
 app.use( '/author', authorRoute);
 
 app.listen(8000, () => {
