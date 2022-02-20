@@ -10,6 +10,15 @@ const authorController = {
       console.log(err);
       res.status(500).json(err);
     }
+  },
+  getAuthors: async (req, res) => {
+    try {
+      const authors = await Author.find();
+      res.status(200).json(authors);
+    }catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
   }
 }
 
